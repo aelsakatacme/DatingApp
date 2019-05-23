@@ -1,0 +1,34 @@
+
+<div class="row" style="height:60px;">
+  <div class="col-xs-12">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <b class="navbar-brand" href="#">Dating App</b>
+      <ul class="navbar-nav mr-auto">
+        <ng-container *ngIf="auth.isLoggedIn">
+          <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/members']">Members</a></li>
+          <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/lists']">Lists</a></li>
+          <li class="nav-item" routerLinkActive="active"><a class="nav-link" [routerLink]="['/messages']">Messages</a></li>
+        </ng-container>
+      </ul>
+
+      <div class="btn-group" *ngIf="auth.isLoggedIn" dropdown>
+        <button dropdownToggle type="button" class="btn btn-light dropdown-toggle" aria-controls="dropdown-basic">
+          Welcome {{auth.currentUser.fullName}} <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" [routerLink]="['/member/', auth.currentUser.id]"><i class="fa fa-user"></i>&nbsp;Profile</a></li>
+          <div class="dropdown-divider"></div>
+          <li role="menuitem"><a class="dropdown-item" (click)="auth.logout()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a></li>
+        </ul>
+      </div>
+      
+
+      <form class="form-inline my-2 my-lg-0" #loginForm="ngForm" (submit)="login()" *ngIf="!auth.isLoggedIn">
+        <input type="text" class="form-control mr-sm-2" name="username" [(ngModel)]="userLoginDTO.username" placeholder="username" required />
+        <input type="password" class="form-control mr-sm-2" name="password" [(ngModel)]="userLoginDTO.password" placeholder="password" required />
+        <button type="submit" class="btn btn-success my-2 my-sm-0" [disabled]="loginForm.invalid">Login</button>
+      </form>
+   
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 p-2" *ngFor="let user of users;index as i;">
+      <div class="card">
+        <div class="card-img-wrapper">
+            <img class="card-img-top" [src]="user.photoUrl" alt="Card image cap">
+            <ul class="list-inline card-member-icons animate text-center">
+              <li class="list-inline-item"><button class="button btn btn-primary" [routerLink]="['/member/', user.id]"><i class="fa fa-user"></i></button></li>
+              <li class="list-inline-item"><button class="button btn btn-primary"><i class="fa fa-heart"></i></button></li>
+              <li class="list-inline-item"><button class="button btn btn-primary"><i class="fa fa-envelope"></i></button></li>
+            </ul>
+        </div>
+        <div class="card-body">
+          <h6 class="card-title text-center"><i class="fa fa-user mr-1"></i> {{user.fullName}}, {{user.age}}</h6>
+          <p class="text-center text-muted">{{user.city?.name}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

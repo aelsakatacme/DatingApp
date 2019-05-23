@@ -1,0 +1,128 @@
+<div class="container mt-4 mb-4" >
+  <!-- info mode -->
+  <div class="row" *ngIf="user && !editMode">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-img-top img-thumbnail">
+          <img [src]="user.photoUrl" [alt]="user.knownAs" width="100%" />
+        </div>
+        <div class="card-body">
+          <div *ngIf="showEditBtn">
+            <button class="btn btn-warning form-control" (click)="editMode = true;"><i class="fa fa-edit">&nbsp;Edit Profile</i></button>
+            <hr/>
+          </div>
+          <strong>Name:</strong><p>{{user.fullName}}</p>
+          <strong>location:</strong><p>{{user.cityName}}, {{user.countryName}}</p>
+          <strong>Age:</strong><p>{{user.age}}</p>
+          <strong>Member Since:</strong><p>{{user.createdOn}}</p>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-primary mr-2"><i class="fa fa-thumbs-up"></i>&nbsp;Like</button>
+          <button class="btn btn-success mr-2"><i class="fa fa-envelope"></i>&nbsp;Message</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div>
+        <tabset>
+          <tab heading="About {{user.knownAs}}" id="tab1">
+            <div class="tab-body">
+                <h4>Description:</h4><p>{{user.introduction}}</p>
+                <h4>Looking For:</h4><p>{{user.lookingFor}}</p>
+            </div>
+          </tab>
+          <tab heading="Interests">
+            <div class="tab-body">
+                <h4>Interests:</h4><p>{{user.interests}}</p>
+            </div>
+          </tab>
+          <tab heading="Photos">
+            <div class="tab-body">
+                <div class="d-flex justify-content-center">
+                  <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+                </div>
+            </div>
+          </tab>
+          <tab heading="Messages">
+            <div class="tab-body">
+                <textarea class="form-control mn-w-100-per mx-w-100-per mn-h-400 mx-h-400"></textarea>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit mode -->
+  <ng-container *ngIf="user && editMode">
+    <form #EditProfileForm="ngForm" (submit)="editUser()">
+      <div class="d-flex justify-content-between">
+          <h4>EDIT USER PROFILE</h4>
+          <div>
+              <input type="button" class="btn btn-danger mr-4" value="Cancel" (click)="editMode = false;" />
+              <input type="submit" class="btn btn-success" value="Submit" />
+          </div>
+      </div>
+      <hr/>
+      <tabset>
+        <!-- main info -->
+        <tab heading="User Main Info">
+          <div class="tab-body">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                    <label class="bold">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" [(ngModel)]="user.fullName" required />
+                </div>
+                <div class="form-group">
+                  <label class="bold">username</label>
+                  <input type="text" class="form-control" name="username" [(ngModel)]="user.username" required />
+                </div>
+                <div class="form-group">
+                  <label class="bold">Birth Date</label>
+                  <input type="text" class="form-control" name="dateOfBirth" [(ngModel)]="user.dateOfBirth" #db bsDatepicker />
+                </div>
+                <div class="form-group">
+                  <label class="bold">Gender</label>
+                  <ng-select name="genderId" [items]="genderLookup" bindValue="id" bindLabel="value" [(ngModel)]="user.genderId"></ng-select>
+                </div>
+                <div class="form-group">
+                  <label class="bold">City</label>
+                  <ng-select name="cityId" [items]="cityLookup" bindValue="id" bindLabel="value" [(ngModel)]="user.cityId"></ng-select>
+                </div>
+                <div class="form-group">
+                  <label class="bold">Cpuntry</label>
+                  <ng-select name="countryId" [items]="countryLookup" bindValue="id" bindLabel="value" [(ngModel)]="user.countryId"></ng-select>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-12">
+                <div class="form-group">
+                  <label class="bold">Introduction</label>
+                  <textarea name="introduction" class="form-control mn-h-100 mx-h-100" [(ngModel)]="user.introduction"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="bold">Looking For</label> 
+                  <textarea name="lookingFor" class="form-control mn-h-100 mx-h-100" [(ngModel)]="user.lookingFor"></textarea>
+                </div>
+                <div class="form-group">
+                  <label class="bold">Interests</label>
+                  <textarea name="interests" class="form-control mn-h-100 mx-h-100" [(ngModel)]="user.interests"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </tab>
+        <!-- photos -->
+        <tab heading="Photos">
+          <app-member-profile-photos [photos]="user.photos"></app-member-profile-photos>
+        </tab>
+      </tabset>
+
+    </form>
+  </ng-container>
+
+  <!-- not exist -->
+  <div class="container alert alert-danger text-center mt-5" *ngIf="!user && notExist">
+    <h4><b>User Not Exist !</b></h4>
+  </div>
+</div>

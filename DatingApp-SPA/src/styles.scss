@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootswatch/dist/united/bootstrap.min.css"; // app theme
+@import "../node_modules/alertifyjs/build/css/themes/bootstrap.min.css"; //alertify theme
+@import "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css";
+// @import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+
+
+a:hover {
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.mn-h-100-per {
+  min-height: 100%;
+}
+
+.mn-w-100-per{
+  min-width: 100%;
+}
+
+.mx-h-100-per {
+  max-height: 100%;
+}
+
+.mx-w-100-per {
+  max-width: 100%;
+}
+
+
+.mn-h-100 {
+  min-height: 100px;
+}
+
+.mn-h-200 {
+  min-height: 200px;
+}
+
+.mn-h-300 {
+  min-height: 300px;
+}
+
+.mn-h-400 {
+  min-height: 400px;
+}
+
+.mx-h-100 {
+  max-height: 100px;
+}
+
+.mx-h-200 {
+  max-height: 200px;
+}
+
+.mx-h-300 {
+  max-height: 300px;
+}
+
+.mx-h-400 {
+  max-height: 400px;
+}
